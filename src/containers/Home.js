@@ -64,7 +64,7 @@ export default function Home() {
         <p>A simple movie recommender app</p>
         <div className="pt-3">
           <Link to="/login" className="btn btn-info btn-lg mr-3">
-            Login
+            Login 123
           </Link>
           <Link to="/signup" className="btn btn-success btn-lg">
             Signup
