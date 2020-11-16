@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { API } from "aws-amplify";
+// import { API } from "aws-amplify";
 import { ListGroup } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
@@ -8,7 +8,7 @@ import { onError } from "../libs/errorLib";
 import "./Home.css";
 
 export default function Home() {
-  const [notes, setNotes] = useState([]);
+  // const [notes, setNotes] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -78,7 +78,8 @@ export default function Home() {
     return (
       <div className="notes">
         <h1>Your Reviews</h1>
-        <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup>
+        {/* <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup> */}
+        <ListGroup>{!isLoading && renderNotesList([])}</ListGroup>
       </div>
     );
   }
