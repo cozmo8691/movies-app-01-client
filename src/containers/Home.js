@@ -31,7 +31,7 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]);
 
-  // load reviews
+  // load reviews sf
   // function loadNotes() {
   //   return API.get("notes", "/notes");
   // }
