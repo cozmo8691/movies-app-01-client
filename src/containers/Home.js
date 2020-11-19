@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { API } from "aws-amplify";
+import { API } from "aws-amplify";
 import { ListGroup } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
@@ -8,7 +8,7 @@ import { onError } from "../libs/errorLib";
 import "./Home.css";
 
 export default function Home() {
-  // const [notes, setNotes] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,8 +19,8 @@ export default function Home() {
       }
 
       try {
-        //const notes = await loadNotes();
-        //setNotes(notes);
+        const ratings = await loadRatings();
+        setRatings(ratings);
       } catch (e) {
         onError(e);
       }
@@ -31,20 +31,18 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]);
 
-  // load reviews sf
-  // function loadNotes() {
-  //   return API.get("notes", "/notes");
-  // }
+  function loadRatings() {
+    return API.get("movies", "/ratings");
+  }
 
-  function renderNotesList(notes) {
-    return [{}].concat(notes).map((note, i) =>
+  function renderRatingsList(ratings) {
+    console.log(ratings);
+    return [{}].concat(ratings).map((rating, i) =>
       i !== 0 ? (
-        <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
-          <ListGroup.Item>
-            {`${note.content.trim().split("\n")[0]} - `}
-            {"Created: " + new Date(note.createdAt).toLocaleString()}
-          </ListGroup.Item>
-        </LinkContainer>
+        <ListGroup.Item header={rating.rating}>
+          {"Movie: " + rating.movieId},
+          {"Created: " + new Date(rating.createdAt).toLocaleString()}
+        </ListGroup.Item>
       ) : (
         <LinkContainer key="new" to="/movies">
           <ListGroup.Item>
@@ -74,19 +72,18 @@ export default function Home() {
     );
   }
 
-  function renderNotes() {
+  function renderRatings() {
     return (
       <div className="notes">
         <h1>Your Reviews</h1>
-        {/* <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup> */}
-        <ListGroup>{!isLoading && renderNotesList([])}</ListGroup>
+        <ListGroup>{!isLoading && renderRatingsList(ratings)}</ListGroup>
       </div>
     );
   }
 
   return (
     <div className="Home">
-      {isAuthenticated ? renderNotes() : renderLander()}
+      {isAuthenticated ? renderRatings() : renderLander()}
     </div>
   );
 }
