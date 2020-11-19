@@ -2,10 +2,21 @@
   margin-top: 15px;
 }
 
+.App .navbar {
+  top: 0;
+  position: sticky;
+}
+
 .App .navbar-brand {
   font-weight: bold;
 }
 
 .App .navbar-nav .nav-item {
   color: #333333;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.App .navbar-nav {
+  width: 100%;
 }

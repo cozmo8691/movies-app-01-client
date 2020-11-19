@@ -12,8 +12,6 @@ export default function MoviesList() {
   const [movieId, setMovieId] = useState(null);
   const [movieDetails, setMovieDetails] = useState(null);
 
-  // const MOVIE_API_URL = 'http://localhost:3000/movies';
-
   const [
     isFetching,
     setIsFetching,

@@ -10,27 +10,27 @@ import { onError } from "./libs/errorLib";
 
 import "./App.css";
 
-function App(props) {
+function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
-    onLoad();
-  }, []);
-
-  async function onLoad() {
-    try {
-      await Auth.currentSession();
-      userHasAuthenticated(true);
-    } catch (e) {
-      if (e !== "No current user") {
-        onError(e);
+    async function onLoad() {
+      try {
+        await Auth.currentSession();
+        userHasAuthenticated(true);
+      } catch (e) {
+        if (e !== "No current user") {
+          onError(e);
+        }
       }
+
+      setIsAuthenticating(false);
     }
 
-    setIsAuthenticating(false);
-  }
+    onLoad();
+  }, []);
 
   async function handleLogout() {
     await Auth.signOut();
@@ -46,17 +46,11 @@ function App(props) {
           <Navbar.Brand href="/">Movie stuff</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="mr-auto justify-content-end">
               {isAuthenticated ? (
                 <Nav.Item onClick={handleLogout}>Logout</Nav.Item>
               ) : (
                 <>
-                  {/* <LinkContainer to="/signup">
-                    <Nav.Link href="/signup">Signup</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/login">
-                    <Nav.Link href="/login">Login</Nav.Link>
-                  </LinkContainer> */}
                   <LinkContainer to="/signup">
                     <NavItem>Signup</NavItem>
                   </LinkContainer>
