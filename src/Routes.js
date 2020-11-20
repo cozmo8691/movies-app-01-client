@@ -10,7 +10,8 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 // import NewNote from "./containers/NewNote";
 // import Notes from "./containers/Notes";
-import Calendar from "./containers/Calendar";
+// import Calendar from "./containers/Calendar";
+import Recommendations from "./containers/Recommendations";
 
 import MoviesList from "./containers/MoviesList";
 
@@ -29,8 +30,8 @@ export default function Routes() {
       <AuthenticatedRoute exact path="/movies">
         <MoviesList />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/calendar">
-        <Calendar />
+      <AuthenticatedRoute exact path="/recommendations">
+        <Recommendations />
       </AuthenticatedRoute>
       <Route>
         <NotFound />

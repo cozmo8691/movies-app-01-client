@@ -88,7 +88,7 @@ export default function MoviesList() {
       </ul>
 
       {movieDetails && (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} className="movieDetailsModal">
           <Modal.Header
             closeButton
             style={{
