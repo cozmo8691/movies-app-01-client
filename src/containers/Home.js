@@ -36,10 +36,9 @@ export default function Home() {
   }
 
   function renderRatingsList(ratings) {
-    console.log(ratings);
     return [{}].concat(ratings).map((rating, i) =>
       i !== 0 ? (
-        <ListGroup.Item header={rating.rating}>
+        <ListGroup.Item key={rating.createdAt} header={rating.rating}>
           {"Movie: " + rating.movieId},
           {"Created: " + new Date(rating.createdAt).toLocaleString()}
         </ListGroup.Item>

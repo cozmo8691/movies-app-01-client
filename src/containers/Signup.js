@@ -83,7 +83,6 @@ export default function Signup() {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
           isLoading={isLoading}
           disabled={!validateConfirmationForm()}>
           Verify
@@ -123,7 +122,6 @@ export default function Signup() {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
           isLoading={isLoading}
           disabled={!validateForm()}>
           Signup
@@ -134,6 +132,7 @@ export default function Signup() {
 
   return (
     <div className="Signup">
+      <h2>Sign up</h2>
       {newUser === null ? renderForm() : renderConfirmationForm()}
     </div>
   );

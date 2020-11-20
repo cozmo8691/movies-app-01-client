@@ -33,25 +33,12 @@
   .movies-list > ul > li {
     width: 50%;
   }
-
-  .modal-footer {
-    flex-direction: column;
-    align-content: flex-start;
-  }
-
-  .modal-footer button {
-    width: 100%;
-  }
 }
 
 @media screen and (max-width: 600px) {
   .movies-list > ul > li {
     width: 100%;
   }
-}
-
-.modal-dialog {
-  max-width: 540px;
 }
 
 .modal-header {
@@ -72,8 +59,4 @@
 
 .modal-content {
   color: #333;
-}
-
-.modal-footer {
-  justify-content: space-around;
 }

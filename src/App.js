@@ -13,7 +13,19 @@ import "./App.css";
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [displayUserName, setDisplayUserName] = useState("");
   const history = useHistory();
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const {
+        attributes: { email },
+      } = await Auth.currentUserInfo();
+      setDisplayUserName(email);
+    }
+
+    getUserInfo();
+  }, []);
 
   useEffect(() => {
     async function onLoad() {
@@ -43,12 +55,20 @@ function App() {
     !isAuthenticating && (
       <div className="App container">
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Movie stuff</Navbar.Brand>
+          <LinkContainer to="/">
+            <NavItem className="brand">Movie stuff 123</NavItem>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto justify-content-end">
               {isAuthenticated ? (
-                <Nav.Item onClick={handleLogout}>Logout</Nav.Item>
+                <>
+                  <LinkContainer to="/recommendations">
+                    <NavItem>Recommendations</NavItem>
+                  </LinkContainer>
+                  <div>Logged in as: {displayUserName}</div>
+                  <Nav.Item onClick={handleLogout}>Logout</Nav.Item>
+                </>
               ) : (
                 <>
                   <LinkContainer to="/signup">
