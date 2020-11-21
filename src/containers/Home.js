@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
 import { ListGroup } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+// import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import "./Home.css";
 
 export default function Home() {
   const [ratings, setRatings] = useState([]);
-  const { isAuthenticated } = useAppContext();
+  const { isAuthenticated, setHasRatings } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export default function Home() {
       try {
         const ratings = await loadRatings();
         setRatings(ratings);
+        setHasRatings(ratings.length > 0);
       } catch (e) {
         onError(e);
       }
@@ -29,29 +30,24 @@ export default function Home() {
     }
 
     onLoad();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, setHasRatings]);
 
   function loadRatings() {
     return API.get("movies", "/ratings");
   }
 
   function renderRatingsList(ratings) {
-    return [{}].concat(ratings).map((rating, i) =>
-      i !== 0 ? (
-        <ListGroup.Item key={rating.createdAt} header={rating.rating}>
-          {"Movie: " + rating.movieId},
-          {"Created: " + new Date(rating.createdAt).toLocaleString()}
-        </ListGroup.Item>
-      ) : (
-        <LinkContainer key="new" to="/movies">
-          <ListGroup.Item>
-            <h4>
-              <b>{"\uFF0B"}</b> Review some movies
-            </h4>
-          </ListGroup.Item>
-        </LinkContainer>
-      )
-    );
+    // <p>Step 1: rate some movies so we know what you like.</p>
+    //     <p>
+    //       Step 2: get movie recommendations base on what similar users like.
+    //     </p>
+
+    return [{}].concat(ratings).map((rating, i) => (
+      <ListGroup.Item key={rating.createdAt} header={rating.rating}>
+        {"Movie: " + rating.movieId},
+        {"Created: " + new Date(rating.createdAt).toLocaleString()}
+      </ListGroup.Item>
+    ));
   }
 
   function renderLander() {

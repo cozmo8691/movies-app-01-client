@@ -30,3 +30,15 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.global-buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.global-buttons a,
+.global-buttons button {
+  border-radius: 0;
+  font-weight: bold;
+}

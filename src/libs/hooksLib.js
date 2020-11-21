@@ -15,9 +15,8 @@ export function useFormFields(initialState) {
 }
 
 export function useInfiniteScroll(callback) {
-  const [isFetching, setIsFetching] = useState(true);
+  const [canFetch, setCanFetch] = useState(true);
   const [pageIndex, setPageIndex] = useState(1);
-  const [genre, setGenre] = useState("");
 
   useEffect(() => {
     let isThrottled = false;
@@ -31,7 +30,8 @@ export function useInfiniteScroll(callback) {
         ) {
           return;
         }
-        setIsFetching(true);
+
+        setCanFetch(true);
         isThrottled = true;
 
         setTimeout(() => {
@@ -47,9 +47,12 @@ export function useInfiniteScroll(callback) {
   }, []);
 
   useEffect(() => {
-    if (!isFetching) return;
+    if (!canFetch) {
+      return;
+    }
+    setCanFetch(false);
     callback();
-  }, [isFetching, genre, callback]);
+  }, [canFetch, callback]);
 
-  return [isFetching, setIsFetching, pageIndex, setPageIndex, genre, setGenre];
+  return [setCanFetch, pageIndex, setPageIndex];
 }
