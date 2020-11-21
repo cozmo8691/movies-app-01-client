@@ -54,7 +54,7 @@
   max-width: 540px;
 }
 
-.modal-header {
+.movieDetailsModal .modal-header {
   background-size: cover;
   height: 300px;
   color: white;
@@ -76,4 +76,12 @@
 
 .modal-footer {
   justify-content: space-around;
+}
+
+.spinner-container {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

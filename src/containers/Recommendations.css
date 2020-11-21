@@ -40,23 +40,3 @@
     width: 100%;
   }
 }
-
-.modal-header {
-  background-size: cover;
-  height: 300px;
-  color: white;
-  position: relative;
-}
-
-.modal-header h4 {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-size: 24px;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-  color: #333;
-}

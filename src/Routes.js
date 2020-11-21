@@ -8,9 +8,6 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-// import NewNote from "./containers/NewNote";
-// import Notes from "./containers/Notes";
-// import Calendar from "./containers/Calendar";
 import Recommendations from "./containers/Recommendations";
 
 import MoviesList from "./containers/MoviesList";

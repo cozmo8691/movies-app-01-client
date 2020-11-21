@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { Navbar, Nav, NavItem, Button } from "react-bootstrap";
 
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
@@ -13,10 +13,16 @@ import "./App.css";
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [hasRatings, setHasRatings] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+  const [isViewingMovies, setIsViewingMovies] = useState(false);
   const [displayUserName, setDisplayUserName] = useState("");
   const history = useHistory();
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
     async function getUserInfo() {
       const {
         attributes: { email },
@@ -25,7 +31,7 @@ function App() {
     }
 
     getUserInfo();
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     async function onLoad() {
@@ -63,10 +69,7 @@ function App() {
             <Nav className="mr-auto justify-content-end">
               {isAuthenticated ? (
                 <>
-                  <LinkContainer to="/recommendations">
-                    <NavItem>Recommendations</NavItem>
-                  </LinkContainer>
-                  <div>Logged in as: {displayUserName}</div>
+                  <div>{displayUserName}</div>
                   <Nav.Item onClick={handleLogout}>Logout</Nav.Item>
                 </>
               ) : (
@@ -82,9 +85,34 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+        <AppContext.Provider
+          value={{
+            isAuthenticated,
+            userHasAuthenticated,
+            setHasRatings,
+            showFilter,
+            setShowFilter,
+            setIsViewingMovies,
+          }}>
           <Routes />
         </AppContext.Provider>
+        <div className="global-buttons">
+          {isAuthenticated && isViewingMovies && (
+            <Button variant="success" onClick={() => setShowFilter(true)}>
+              Filter movies
+            </Button>
+          )}
+          {isAuthenticated && !isViewingMovies && (
+            <LinkContainer to="/movies">
+              <Button variant="success">Rate some movies</Button>
+            </LinkContainer>
+          )}
+          {isAuthenticated && hasRatings && (
+            <LinkContainer to="/recommendations">
+              <Button variant="primary">Get recommendations</Button>
+            </LinkContainer>
+          )}
+        </div>
       </div>
     )
   );
