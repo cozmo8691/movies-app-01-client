@@ -8,16 +8,11 @@
   font-weight: 600;
 }
 
-.Home h4 {
-  color: #333;
-  cursor: pointer;
-}
-
 .Home .lander p {
   color: #999;
 }
 
-.Home .ratings h4 {
+.ratings h4 {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   overflow: hidden;
@@ -25,10 +20,68 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.Home .ratings p {
-  color: #666;
+
+.home-movies-list > ul {
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  max-width: 1200px;
 }
 
-.Home .list-group {
-  color: #333;
+.home-movies-list > ul > li {
+  width: 20%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-movies-list > ul > li > div {
+  display: block;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 140%;
+}
+
+@media screen and (max-width: 1000px) {
+  .home-movies-list > ul > li {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .home-movies-list > ul > li {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home-movies-list > ul > li {
+    width: 100%;
+  }
+}
+
+.spinner-container {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rating-value {
+  position: absolute;
+  display: block;
+  z-index: 500;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding-top: 0 !important;
+  width: 100%;
+  height: 25px;
 }

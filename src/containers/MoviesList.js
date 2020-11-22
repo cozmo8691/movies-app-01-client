@@ -88,19 +88,30 @@ const genresDefinitions = [
 
 export default function MoviesList() {
   const [movies, setMovies] = useState([]);
-  const { showFilter, setShowFilter, setIsViewingMovies } = useAppContext();
+  const {
+    showFilter,
+    setShowFilter,
+    setIsViewingMovies,
+    hasRatings,
+    setHasRatings,
+  } = useAppContext();
   const [show, setShow] = useState(false);
   const [movieId, setMovieId] = useState(null);
   const [movieDetails, setMovieDetails] = useState(null);
   const [genres, setGenres] = useState(genresDefinitions);
   const [isReset, setIsReset] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
+  const [hasRated, setHasRated] = useState(hasRatings);
 
   useEffect(() => {
     setIsViewingMovies(true);
 
     return () => setIsViewingMovies(false);
   }, [setIsViewingMovies]);
+
+  useEffect(() => {
+    hasRated && setHasRatings(true);
+  }, [hasRated, setHasRatings]);
 
   const [setCanFetch, pageIndex, setPageIndex] = useInfiniteScroll(() => {
     const fetchData = async () => {
@@ -155,17 +166,15 @@ export default function MoviesList() {
   };
 
   async function handleSubmit(rating, movieId) {
-    // setIsLoading(true);
-
     try {
       await API.post("movies", "/ratings", {
         body: { rating, movieId: `${movieId}` },
       });
+      setHasRated(true);
     } catch (e) {
       alert(e);
     } finally {
       setShow(false);
-      // setIsLoading(false);
     }
   }
 
@@ -212,7 +221,14 @@ export default function MoviesList() {
           onHide={() => setShowFilter(false)}
           className="filterModal">
           <Modal.Header closeButton>
-            <Modal.Title>Filter movies</Modal.Title>
+            <Button
+              variant="primary"
+              onClick={() => {
+                setShowFilter(false);
+                setIsReset(true);
+              }}>
+              Save
+            </Button>
           </Modal.Header>
           <Modal.Body>
             <Form>
