@@ -61,65 +61,69 @@ function App() {
     history.push("/login");
   }
 
+  if (isAuthenticating) {
+    return null;
+  }
+
   return (
-    !isAuthenticating && (
-      <div className="App container">
-        <Navbar bg="light" expand="lg">
-          <LinkContainer to="/">
-            <NavItem className="brand">Movie stuff 123 test</NavItem>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto justify-content-end">
-              {isAuthenticated ? (
-                <>
-                  <div>{displayUserName}</div>
-                  <Nav.Item onClick={handleLogout}>Logout</Nav.Item>
-                </>
-              ) : (
-                <>
-                  <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
-                  </LinkContainer>
-                </>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <AppContext.Provider
-          value={{
-            isAuthenticated,
-            userHasAuthenticated,
-            hasRatings,
-            setHasRatings,
-            showFilter,
-            setShowFilter,
-            setIsViewingMovies,
-          }}>
-          <Routes />
-        </AppContext.Provider>
+    <div className="App container">
+      <Navbar bg="light" expand="lg">
+        <LinkContainer to="/">
+          <NavItem className="brand">Movie stuff 123</NavItem>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto justify-content-end">
+            {isAuthenticated ? (
+              <>
+                <div>{displayUserName}</div>
+                <Nav.Item onClick={handleLogout}>Logout</Nav.Item>
+              </>
+            ) : (
+              <>
+                <LinkContainer to="/signup">
+                  <NavItem>Signup</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/login">
+                  <NavItem>Login</NavItem>
+                </LinkContainer>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <AppContext.Provider
+        value={{
+          isAuthenticated,
+          userHasAuthenticated,
+          hasRatings,
+          setHasRatings,
+          showFilter,
+          setShowFilter,
+          setIsViewingMovies,
+        }}>
+        <Routes />
+      </AppContext.Provider>
+      {isAuthenticated && (
         <div className="global-buttons">
-          {isAuthenticated && isViewingMovies && (
+          {isViewingMovies && (
             <Button variant="success" onClick={() => setShowFilter(true)}>
               Filter movies
             </Button>
           )}
-          {isAuthenticated && !isViewingMovies && (
+          {!isViewingMovies && (
             <LinkContainer to="/movies">
               <Button variant="success">Rate some movies</Button>
             </LinkContainer>
           )}
-          {isAuthenticated && hasRatings && (
+          {hasRatings && (
             <LinkContainer to="/recommendations">
               <Button variant="primary">Get recommendations</Button>
             </LinkContainer>
           )}
         </div>
-      </div>
-    )
+      )}
+    </div>
   );
 }
 

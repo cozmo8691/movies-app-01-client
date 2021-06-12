@@ -5,6 +5,7 @@ import { Fade } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import "./Home.css";
+import Movie from "../components/Movie";
 
 export default function Home() {
   const [ratings, setRatings] = useState([]);
@@ -14,15 +15,15 @@ export default function Home() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    if (!ratings.length) {
+    if (ratings.length === 0) {
       return;
     }
 
-    const promises = ratings.map(({ movieId }) =>
-      API.get("movies", `/movie/${movieId}/`)
-    );
     async function getMovies() {
       try {
+        const promises = ratings.map(({ movieId }) =>
+          API.get("movies", `/movie/${movieId}/`)
+        );
         const movies = await Promise.all(promises);
         setMovies(movies);
       } catch (e) {
@@ -35,16 +36,19 @@ export default function Home() {
   }, [ratings]);
 
   useEffect(() => {
-    async function onLoad() {
-      if (!isAuthenticated) {
-        return;
-      }
+    if (!isAuthenticated) {
+      return;
+    }
 
+    async function getRatings() {
       try {
-        const ratings = await loadRatings();
+        const ratings = await API.get("movies", "/ratings");
+
         setRatings(ratings);
         const hasRatings = ratings.length > 0;
+
         setHasRatings(hasRatings);
+
         if (!hasRatings) {
           setIsLoadingMovies(false);
         }
@@ -55,12 +59,8 @@ export default function Home() {
       }
     }
 
-    onLoad();
+    getRatings();
   }, [isAuthenticated, setHasRatings]);
-
-  function loadRatings() {
-    return API.get("movies", "/ratings");
-  }
 
   function renderRatingsList() {
     return (
@@ -68,32 +68,14 @@ export default function Home() {
         <h1>Your ratings</h1>
         <Fade in={true} appear>
           <ul>
-            {movies.length > 0 &&
-              movies.map(({ id, poster_path }) => {
-                const rating = ratings.find((r) => r.movieId === id.toString())
-                  .rating;
-                return (
-                  <li
-                    key={id}
-                    style={{
-                      position: "relative",
-                    }}>
-                    <div
-                      onClick={() => {}}
-                      style={{
-                        backgroundImage: `url(https://image.tmdb.org/t/p/w342/${poster_path})`,
-                      }}
-                    />
-                    <span className="rating-value">
-                      {[...Array(rating)].map((_el, i) => (
-                        <span key={i} style={{ padding: "3px" }}>
-                          &#11088;
-                        </span>
-                      ))}
-                    </span>
-                  </li>
-                );
-              })}
+            {movies.map(({ id, poster_path }) => (
+              <Movie
+                key={id}
+                id={id}
+                poster_path={poster_path}
+                ratings={ratings}
+              />
+            ))}
           </ul>
         </Fade>
         {!isLoadingRatings && !isLoadingMovies && movies.length === 0 && (
