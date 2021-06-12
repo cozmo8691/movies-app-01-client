@@ -66,7 +66,7 @@ function App() {
       <div className="App container">
         <Navbar bg="light" expand="lg">
           <LinkContainer to="/">
-            <NavItem className="brand">Movie stuff 123</NavItem>
+            <NavItem className="brand">Movie stuff 123 test</NavItem>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
