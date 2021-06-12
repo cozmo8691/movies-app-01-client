@@ -25,8 +25,8 @@ export function useInfiniteScroll(callback) {
     const handleScroll = () => {
       if (!isThrottled) {
         if (
-          window.innerHeight + document.documentElement.scrollTop !==
-          document.documentElement.offsetHeight
+          window.innerHeight + document.documentElement.scrollTop <
+          document.documentElement.offsetHeight - 10
         ) {
           return;
         }
