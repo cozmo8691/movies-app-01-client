@@ -20,10 +20,6 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("hasRatings");
-  }, [hasRatings]);
-
-  useEffect(() => {
     if (!isAuthenticated) {
       return;
     }

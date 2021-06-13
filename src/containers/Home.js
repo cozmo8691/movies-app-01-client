@@ -92,6 +92,7 @@ export default function Home() {
       <div className="lander">
         <h1>Movie stuff</h1>
         <p>Get some movie recommendations</p>
+        <p>admin@example.com/Passw0rd!</p>
         <div className="pt-3">
           <Link to="/login" className="btn btn-info btn-lg mr-3">
             Login
