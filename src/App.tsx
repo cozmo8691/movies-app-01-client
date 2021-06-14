@@ -36,9 +36,11 @@ function App() {
   useEffect(() => {
     async function onLoad() {
       try {
-        await Auth.currentSession();
+        const res = await Auth.currentSession();
+        console.log(res);
         userHasAuthenticated(true);
       } catch (e) {
+        console.log("ERROR", e);
         if (e !== "No current user") {
           onError(e);
         }

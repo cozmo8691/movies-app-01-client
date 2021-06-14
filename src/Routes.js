@@ -4,13 +4,13 @@ import { Route, Switch } from "react-router-dom";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
-import Home from "./containers/Home";
-import NotFound from "./containers/NotFound";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
-import Recommendations from "./containers/Recommendations";
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Recommendations from "./components/Recommendations";
 
-import MoviesList from "./containers/MoviesList";
+import MoviesList from "./components/MoviesList";
 
 export default function Routes() {
   return (
