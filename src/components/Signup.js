@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { Form } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "./LoaderButton";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";

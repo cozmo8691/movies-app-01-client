@@ -5,7 +5,7 @@ import { Fade } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import "./Home.css";
-import Movie from "../components/Movie";
+import Movie from "./Movie";
 
 export default function Home() {
   const [ratings, setRatings] = useState([]);

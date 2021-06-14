@@ -1,3 +1,12 @@
+## Movie recommender project (still looking for a name)
+
+Uses collaborative filtering at run-time to generate movie recommendations based on similar users.
+
+## Todo:
+
+Error handling
+Fix the DB
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

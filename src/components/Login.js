@@ -5,7 +5,7 @@ import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "./LoaderButton";
 
 import "./Login.css";
 
@@ -38,6 +38,7 @@ export default function Login() {
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
+        <p>admin@example.com/Passw0rd!</p>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
